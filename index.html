@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>有时学社 · 考试网盘资料库</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📚</text></svg>">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#f0e6df;--rose:#e4a0aa;--rose-d:#c47882;--rose-bg:#f5d0d5;--mint:#8cc8a8;--mint-d:#5ea87c;--mint-bg:#c2e4d0;--sky:#8ab4d6;--sky-d:#5a8eb8;--peach:#e8b88a;--peach-d:#c89060;--lilac:#b8a0d0;--lilac-d:#9478b0;--grad:#e0a0d0;--sand:#c8b898;--sand-d:#a89870;--text:#4a3f38;--text2:#7a6e64;--text3:#a09488}
+body{font-family:'Noto Sans SC',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;min-height:100dvh;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse at 10% 10%,rgba(228,160,170,.18) 0%,transparent 50%),radial-gradient(ellipse at 90% 15%,rgba(140,200,168,.14) 0%,transparent 45%),radial-gradient(ellipse at 50% 85%,rgba(138,180,214,.1) 0%,transparent 45%),radial-gradient(ellipse at 85% 65%,rgba(232,184,138,.1) 0%,transparent 40%);z-index:-1;pointer-events:none}
+.toast{position:fixed;top:16px;left:50%;transform:translateX(-50%) translateY(-80px);padding:12px 28px;border-radius:18px;font-size:13px;font-weight:600;z-index:9999;transition:transform .4s cubic-bezier(.34,1.56,.64,1);pointer-events:none;box-shadow:inset 2px 2px 4px rgba(255,255,255,.5),inset -2px -2px 4px rgba(0,0,0,.06),4px 4px 16px rgba(0,0,0,.12)}.toast.show{transform:translateX(-50%) translateY(12px)}.toast.ok{background:var(--mint-bg);color:var(--mint-d)}.toast.err{background:var(--rose-bg);color:var(--rose-d)}
+header{position:sticky;top:0;z-index:100;padding:8px 12px}.hd-wrap{max-width:1080px;margin:0 auto;border-radius:18px;padding:12px 16px;background:linear-gradient(145deg,rgba(255,255,255,.55),rgba(255,255,255,.18));box-shadow:inset 2px 2px 5px rgba(255,255,255,.65),inset -2px -2px 5px rgba(0,0,0,.05),4px 4px 18px rgba(0,0,0,.08);backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,.5);display:flex;justify-content:space-between;align-items:center;gap:8px}
+.brand{display:flex;align-items:center;gap:10px;min-width:0}.brand-mark{width:38px;height:38px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;background:linear-gradient(135deg,var(--rose-bg),rgba(212,196,228,.6));box-shadow:inset 1.5px 1.5px 3px rgba(255,255,255,.6),inset -1.5px -1.5px 3px rgba(0,0,0,.06),2px 2px 6px rgba(0,0,0,.07)}.brand-text{min-width:0}.brand h1{font-size:15px;font-weight:800;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.brand-sub{font-size:10px;color:var(--text3);margin-top:1px;display:flex;align-items:center;gap:5px}.wx-tag{color:var(--text2);cursor:pointer;font-weight:500;white-space:nowrap}
+nav{display:flex;gap:4px;flex-shrink:0}.nb{padding:7px 12px;border:none;border-radius:12px;background:transparent;color:var(--text3);font-size:12px;font-weight:600;cursor:pointer;transition:all .2s;white-space:nowrap;-webkit-tap-highlight-color:transparent}.nb.on{background:rgba(255,255,255,.45);color:var(--text);box-shadow:inset 1.5px 1.5px 3px rgba(255,255,255,.6),inset -1.5px -1.5px 3px rgba(0,0,0,.04),2px 2px 6px rgba(0,0,0,.05)}
+main{max-width:1080px;margin:0 auto;padding:16px 12px 100px}
+.toolbar{margin-bottom:20px}.si{width:100%;padding:13px 16px;border:none;border-radius:16px;font-size:15px;outline:0;color:var(--text);font-family:inherit;background:linear-gradient(145deg,rgba(255,255,255,.5),rgba(255,255,255,.14));box-shadow:inset 2px 2px 5px rgba(255,255,255,.6),inset -2px -2px 5px rgba(0,0,0,.05),3px 3px 10px rgba(0,0,0,.05);backdrop-filter:blur(6px);border:1px solid rgba(255,255,255,.4);transition:all .3s;margin-bottom:12px}.si::placeholder{color:var(--text3)}.si:focus{box-shadow:inset 2px 2px 5px rgba(255,255,255,.7),inset -2px -2px 5px rgba(0,0,0,.04),3px 3px 14px rgba(0,0,0,.08),0 0 0 2px rgba(228,160,170,.18)}
+.fr{display:flex;gap:8px;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding:2px 0 6px}.fr::-webkit-scrollbar{display:none}.fc{padding:8px 16px;border:none;border-radius:14px;font-size:13px;font-weight:600;cursor:pointer;transition:all .2s;white-space:nowrap;flex-shrink:0;background:linear-gradient(145deg,rgba(255,255,255,.42),rgba(255,255,255,.12));box-shadow:inset 1px 1px 3px rgba(255,255,255,.6),inset -1px -1px 3px rgba(0,0,0,.04),2px 2px 6px rgba(0,0,0,.04);border:1px solid rgba(255,255,255,.35);color:var(--text2);-webkit-tap-highlight-color:transparent}.fc:active{transform:scale(.95)}.fc.on{color:#fff!important;border-color:transparent!important}
+.cs{margin-bottom:24px}.ch{display:flex;align-items:center;gap:10px;margin-bottom:12px;padding:0 4px}.cat-pill{display:inline-flex;align-items:center;gap:5px;padding:7px 16px;border-radius:14px;font-size:13px;font-weight:700;color:#fff;box-shadow:inset 2px 2px 4px rgba(255,255,255,.3),inset -2px -2px 4px rgba(0,0,0,.1),3px 3px 10px rgba(0,0,0,.08)}.cat-3d{font-size:16px}.ccn{font-size:12px;color:var(--text3);font-weight:500;margin-left:auto}
+.masonry{column-count:1;column-gap:12px}
+.card{break-inside:avoid;margin-bottom:12px;padding:18px;transition:all .3s;position:relative;overflow:hidden;border-radius:22px;background:linear-gradient(145deg,rgba(255,255,255,.55),rgba(255,255,255,.18));box-shadow:inset 2.5px 2.5px 6px rgba(255,255,255,.7),inset -2.5px -2.5px 6px rgba(0,0,0,.05),4px 4px 14px rgba(0,0,0,.06);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.5)}.card-top{display:flex;align-items:flex-start;gap:12px;margin-bottom:14px}.card-icon-wrap{width:48px;height:48px;border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0;box-shadow:inset 2px 2px 4px rgba(255,255,255,.5),inset -2px -2px 4px rgba(0,0,0,.06),2px 2px 6px rgba(0,0,0,.06)}.card-info{min-width:0;flex:1;padding-top:2px}.card h3{font-size:16px;font-weight:700;color:var(--text);line-height:1.35;margin-bottom:3px}.card-sub{font-size:12px;color:var(--text3);font-weight:400;display:inline-block;padding:2px 10px;border-radius:8px;background:rgba(255,255,255,.4);box-shadow:inset 1px 1px 2px rgba(255,255,255,.5)}
+.cp-btn{width:100%;padding:12px 0;border:none;border-radius:14px;font-size:14px;font-weight:600;cursor:pointer;transition:all .2s;color:#fff;font-family:inherit;box-shadow:inset 2px 2px 4px rgba(255,255,255,.3),inset -2px -2px 4px rgba(0,0,0,.1),3px 3px 8px rgba(0,0,0,.08);-webkit-tap-highlight-color:transparent}.cp-btn:active{transform:scale(.96)}.cp-btn.copied{background:var(--mint)!important}
+.pw-overlay{position:fixed;inset:0;background:rgba(74,63,56,.4);backdrop-filter:blur(12px);z-index:9000;display:flex;align-items:center;justify-content:center;padding:20px}.pw-box{width:100%;max-width:340px;padding:32px 24px;text-align:center;border-radius:26px;background:linear-gradient(145deg,rgba(255,255,255,.7),rgba(255,255,255,.35));box-shadow:inset 2px 2px 6px rgba(255,255,255,.7),inset -2px -2px 6px rgba(0,0,0,.05),8px 8px 32px rgba(0,0,0,.12);border:1px solid rgba(255,255,255,.5)}.pw-icon{font-size:40px;margin-bottom:12px}.pw-title{font-size:17px;font-weight:800;color:var(--text);margin-bottom:6px}.pw-desc{font-size:12px;color:var(--text3);margin-bottom:20px}.pw-input{width:100%;padding:13px 16px;border:none;border-radius:14px;font-size:15px;outline:0;color:var(--text);font-family:inherit;text-align:center;letter-spacing:2px;background:linear-gradient(145deg,rgba(255,255,255,.5),rgba(255,255,255,.14));box-shadow:inset 2px 2px 5px rgba(255,255,255,.6),inset -2px -2px 5px rgba(0,0,0,.05),2px 2px 6px rgba(0,0,0,.04);border:1px solid rgba(255,255,255,.4);margin-bottom:16px}.pw-input:focus{box-shadow:inset 2px 2px 5px rgba(255,255,255,.7),inset -2px -2px 5px rgba(0,0,0,.04),2px 2px 8px rgba(0,0,0,.06),0 0 0 2px rgba(228,160,170,.18)}.pw-submit{width:100%;padding:13px 0;border:none;border-radius:14px;background:linear-gradient(135deg,var(--rose),var(--lilac));color:#fff;font-size:15px;font-weight:700;cursor:pointer;font-family:inherit;box-shadow:inset 2px 2px 4px rgba(255,255,255,.3),inset -2px -2px 4px rgba(0,0,0,.1),3px 3px 10px rgba(228,160,170,.2);margin-bottom:10px;-webkit-tap-highlight-color:transparent}.pw-submit:active{transform:scale(.97)}.pw-cancel{background:none;border:none;color:var(--text3);font-size:13px;cursor:pointer;font-family:inherit;padding:8px 16px}.pw-err{color:var(--rose-d);font-size:12px;font-weight:600;margin-bottom:10px;display:none}
+.afc{padding:22px 18px;margin-bottom:20px;border-radius:24px;background:linear-gradient(145deg,rgba(255,255,255,.55),rgba(255,255,255,.18));box-shadow:inset 2px 2px 6px rgba(255,255,255,.65),inset -2px -2px 6px rgba(0,0,0,.05),5px 5px 18px rgba(0,0,0,.07);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.45)}.aft{font-size:17px;font-weight:800;margin-bottom:20px;color:var(--text)}.afg{display:grid;grid-template-columns:1fr;gap:14px}.afl{display:flex;flex-direction:column;gap:4px}.afl span{font-size:11px;font-weight:600;color:var(--text3)}.afl.full{grid-column:1/-1}.afi,.afs{padding:12px 14px;border:none;border-radius:14px;font-size:14px;outline:0;width:100%;color:var(--text);font-family:inherit;background:linear-gradient(145deg,rgba(255,255,255,.45),rgba(255,255,255,.12));box-shadow:inset 2px 2px 4px rgba(255,255,255,.6),inset -2px -2px 4px rgba(0,0,0,.05),2px 2px 6px rgba(0,0,0,.04);border:1px solid rgba(255,255,255,.35);-webkit-appearance:none}.afi::placeholder{color:var(--text3)}.afi:focus,.afs:focus{box-shadow:inset 2px 2px 4px rgba(255,255,255,.7),inset -2px -2px 4px rgba(0,0,0,.03),2px 2px 8px rgba(0,0,0,.06),0 0 0 2px rgba(228,160,170,.15)}.sub{margin-top:18px;width:100%;padding:14px 0;border:none;border-radius:16px;background:linear-gradient(135deg,var(--rose),var(--lilac));color:#fff;font-size:15px;font-weight:700;cursor:pointer;font-family:inherit;box-shadow:inset 2px 2px 5px rgba(255,255,255,.3),inset -2px -2px 5px rgba(0,0,0,.1),4px 4px 14px rgba(228,160,170,.2);-webkit-tap-highlight-color:transparent}.sub:active{transform:scale(.97)}
+.admin-list{display:flex;flex-direction:column;gap:10px}.admin-item{padding:16px;border-radius:18px;background:linear-gradient(145deg,rgba(255,255,255,.5),rgba(255,255,255,.15));box-shadow:inset 2px 2px 4px rgba(255,255,255,.6),inset -2px -2px 4px rgba(0,0,0,.04),3px 3px 10px rgba(0,0,0,.05);border:1px solid rgba(255,255,255,.4)}.ai-head{display:flex;align-items:center;gap:8px;margin-bottom:8px}.ai-tag{font-size:10px;font-weight:700;padding:3px 8px;border-radius:8px;color:#fff}.ai-name{font-size:14px;font-weight:700;color:var(--text);flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.ai-sub{font-size:12px;color:var(--text3);margin-bottom:10px}.ai-actions{display:flex;gap:8px}.ai-btn{flex:1;padding:9px 0;border:none;border-radius:12px;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit;background:rgba(255,255,255,.4);box-shadow:inset 1px 1px 2px rgba(255,255,255,.5),1px 1px 3px rgba(0,0,0,.04);color:var(--text2);-webkit-tap-highlight-color:transparent}.ai-btn:active{transform:scale(.95)}.ai-btn.dg{color:var(--rose-d)}.ai-btn.cp{color:var(--mint-d)}
+.edit-card{padding:18px;border-radius:20px;margin-bottom:10px;background:linear-gradient(145deg,rgba(255,255,255,.6),rgba(255,255,255,.22));box-shadow:inset 2px 2px 5px rgba(255,255,255,.7),inset -2px -2px 5px rgba(0,0,0,.04),4px 4px 14px rgba(0,0,0,.07);border:1px solid rgba(255,255,255,.5)}.edit-card .afg{gap:10px}.edit-btns{display:flex;gap:8px;margin-top:12px}.edit-btns button{flex:1;padding:10px 0;border:none;border-radius:12px;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;background:rgba(255,255,255,.4);box-shadow:inset 1px 1px 2px rgba(255,255,255,.5),1px 1px 3px rgba(0,0,0,.04);color:var(--text2)}.edit-btns .save-btn{background:var(--mint);color:#fff}
+.pub-bar{margin-top:24px;padding:20px 18px;border-radius:20px;text-align:center;background:linear-gradient(145deg,rgba(255,255,255,.5),rgba(255,255,255,.15));box-shadow:inset 2px 2px 5px rgba(255,255,255,.6),inset -2px -2px 5px rgba(0,0,0,.05),4px 4px 14px rgba(0,0,0,.06);border:1px solid rgba(255,255,255,.4)}.pub-bar p{color:var(--text);font-size:14px;font-weight:700}.pub-bar small{color:var(--text3);font-size:11px;display:block;margin:4px 0 14px}.pub-btn{border:0;background:var(--mint);color:#fff;padding:12px 0;width:100%;border-radius:14px;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit;box-shadow:inset 2px 2px 4px rgba(255,255,255,.3),inset -2px -2px 4px rgba(0,0,0,.08),3px 3px 10px rgba(138,200,168,.2);-webkit-tap-highlight-color:transparent}.pub-btn:active{transform:scale(.97)}
+.empty{text-align:center;padding:60px 20px}.empty-icon{font-size:44px;margin-bottom:10px}.empty p{color:var(--text3);font-size:14px}
+footer{text-align:center;padding:24px 16px;font-size:11px;color:var(--text3)}footer a{color:var(--rose-d);text-decoration:none;font-weight:600}
+@media(min-width:600px){header{padding:10px 16px}.hd-wrap{padding:14px 22px}.brand h1{font-size:17px}main{padding:24px 16px 80px}.masonry{column-count:2;column-gap:14px}.afg{grid-template-columns:1fr 1fr}.afl.full{grid-column:1/-1}.pub-bar{display:flex;justify-content:space-between;align-items:center;text-align:left;padding:22px 24px}.pub-bar small{margin:3px 0 0}.pub-btn{width:auto;padding:12px 32px}}
+@media(min-width:900px){.masonry{column-count:3;column-gap:16px}.card{padding:20px}.card h3{font-size:15px}}
+</style>
+</head>
+<body>
+
+<!-- DATA_START -->
+<script id="app-data" type="application/json">[{"id": "1775431739472", "c": "其他综合类", "e": "英语六级", "s": "英语六级", "l": "通过网盘分享的文件：六级 链接: https://pan.baidu.com/s/1drZ42h-_I28kil40vzfC7A 提取码: 1234  --来自百度网盘超级会员v1的分享"}, {"id": "1775431720122", "c": "其他综合类", "e": "英语四级", "s": "英语四级", "l": "通过网盘分享的文件：四级 链接: https://pan.baidu.com/s/15KRzfTKL_BeMHjof10MwaQ 提取码: 1234  --来自百度网盘超级会员v1的分享"}, {"id": "1775431687004", "c": "其他综合类", "e": "学位英语", "s": "学位英语干货笔记", "l": "通过网盘分享的文件：LR学位英语干货笔记 链接: https://pan.baidu.com/s/1WKd2x4JyLvzIgqyOe6NjUQ 提取码: 1234  --来自百度网盘超级会员v1的分享"}, {"id": "1775431634970", "c": "职业资格类", "e": "教师资格证", "s": "幼儿-教资笔试历年真题（2011-2025下）", "l": "通过网盘分享的文件：幼儿-教资笔试历年真题（2011-2025下） 链接: https://pan.baidu.com/s/1VskVwtGB-EZv-ddBAaUB-A 提取码: 1234  --来自百度网盘超级会员v1的分享"}, {"id": "1775431617520", "c": "职业资格类", "e": "教师资格证", "s": "中学-教资笔试历年真题（2011-2025下）", "l": "通过网盘分享的文件：中学-教资笔试历年真题（2011-2025下） 链接: https://pan.baidu.com/s/1R2OnCvMzlibnL4T8fsi4jQ 提取码: 1234  --来自百度网盘超级会员v1的分享"}, {"id": "1775431595788", "c": "职业资格类", "e": "教师资格证", "s": "小学-教资笔试历年真题（2011-2025下）", "l": "通过网盘分享的文件：小学-教资笔试历年真题（2011-2025下） 链接: https://pan.baidu.com/s/1egwsPftH7H70cuKiIobK3g 提取码: 1234  --来自百度网盘超级会员v1的分享"}, {"id": "1775431577166", "c": "职业资格类", "e": "教师资格证", "s": "中学-科目三历年真题", "l": "通过网盘分享的文件：中学-科目三历年真题 链接: https://pan.baidu.com/s/1VQiYcjn30b9viK65g2XeCw 提取码: 1234  --来自百度网盘超级会员v1的分享"}, {"id": "1775431507507", "c": "职业资格类", "e": "教师资格证", "s": "2026上教资笔试真题及答案解析", "l": "通过网盘分享的文件：2026上教资笔试真题及答案解析 链接: https://pan.baidu.com/s/1OHmGQ_IJZ-YoAm0L92Ov-A 提取码: 1234  --来自百度网盘超级会员v1的分享"}, {"id": "1775431463877", "c": "职业资格类", "e": "法考（法律职业资格）", "s": "法考", "l": "通过网盘分享的文件：法考 链接: https://pan.baidu.com/s/1a_RZQC3-IzLwgjKXj9luqw 提取码: 1234  --来自百度网盘超级会员v1的分享"}, {"id": "1775431389297", "c": "学历提升类", "e": "高考", "s": "高考语文", "l": "通过网盘分享的文件：高考语文 链接: https://pan.baidu.com/s/1niRoMclW6ooUUaTJ-j2D6A 提取码: 1234  --来自百度网盘超级会员v1的分享"}, {"id": "1775431370222", "c": "学历提升类", "e": "高考", "s": "高考数学", "l": "通过网盘分享的文件：高考数学 链接: https://pan.baidu.com/s/1kMRA2exap56wsaJ2meI9rA 提取码: 1234  --来自百度网盘超级会员v1的分享"}, {"id": "1775431348725", "c": "学历提升类", "e": "高考", "s": "高考英语", "l": "通过网盘分享的文件：高考英语 链接: https://pan.baidu.com/s/1EB2nTdLAN9Iset1wcUWYxA 提取码: 1234  --来自百度网盘超级会员v1的分享"}, {"id": "1775431331552", "c": "学历提升类", "e": "高考", "s": "高考物理", "l": "通过网盘分享的文件：高考物理 链接: https://pan.baidu.com/s/1iRMT8DhBLzqmUPUi13-sbw 提取码: 1234  --来自百度网盘超级会员v1的分享"}, {"id": "1775431314624", "c": "学历提升类", "e": "高考", "s": "高考化学", "l": "通过网盘分享的文件：高考化学 链接: https://pan.baidu.com/s/1Ywc-ntsYsA92VyPg0WQVWA 提取码: 1234  --来自百度网盘超级会员v1的分享"}, {"id": "1775431294362", "c": "学历提升类", "e": "高考", "s": "高考生物", "l": "通过网盘分享的文件：高考生物 链接: https://pan.baidu.com/s/1RITnfXBFZaJrb-9Zab2vQg 提取码: 1234  --来自百度网盘超级会员v1的分享"}, {"id": "1775431276895", "c": "学历提升类", "e": "高考", "s": "高考政治", "l": "通过网盘分享的文件：高考政治 链接: https://pan.baidu.com/s/1_c7U-2HYs1adtRmWZ4NC4A 提取码: 1234  --来自百度网盘超级会员v1的分享"}, {"id": "1775431255958", "c": "学历提升类", "e": "高考", "s": "高考历史", "l": "通过网盘分享的文件：高考历史 链接: https://pan.baidu.com/s/1D7tZLA2Zph-1eKdoml3fjw 提取码: 1234  --来自百度网盘超级会员v1的分享"}, {"id": "1775431236004", "c": "学历提升类", "e": "高考", "s": "高考地理", "l": "通过网盘分享的文件：高考地理 链接: https://pan.baidu.com/s/1wSV1--Nkrye0qInH_v-Z1g 提取码: 1234  --来自百度网盘超级会员v1的分享"}, {"id": "1775431175660", "c": "招录招聘类", "e": "公务员", "s": "【省考】历年真题", "l": "通过网盘分享的文件：【省考】历年真题pdf 链接: https://pan.baidu.com/s/1sys6XaNTmMnkFsCGt-naNg 提取码: 1234  --来自百度网盘超级会员v1的分享"}, {"id": "1775431147147", "c": "招录招聘类", "e": "公务员", "s": "【公务员考试-国考】真题（2000-2025年）", "l": "通过网盘分享的文件：【公务员考试-国考】真题（2000-2025年） 链接: https://pan.baidu.com/s/1r19cMR5-gu7T0XW7IV6q2g 提取码: 1234  --来自百度网盘超级会员v1的分享"}, {"id": "1775431116843", "c": "招录招聘类", "e": "公务员", "s": "近年国考面试真题大合集", "l": "通过网盘分享的文件：近年国考面试真题大合集 链接: https://pan.baidu.com/s/1tKdWbFQqB3KiVu9zhPaSMg 提取码: 1234  --来自百度网盘超级会员v1的分享"}, {"id": "1775392017640", "c": "招录招聘类", "e": "公务员", "s": "公务员申论", "l": "通过网盘分享的文件：申论资料包 链接: https://pan.baidu.com/s/1kSGDLx9q7wNpyg2L_OaQEw 提取码: 1234  --来自百度网盘超级会员v1的分享"}, {"id": "1775391997478", "c": "招录招聘类", "e": "公务员", "s": "公务员行测", "l": "通过网盘分享的文件：行测资料包 链接: https://pan.baidu.com/s/1EyVAfKkGlp-UBuWksycDRQ 提取码: 1234  --来自百度网盘超级会员v1的分享"}, {"id": "1775391969424", "c": "招录招聘类", "e": "事业单位", "s": "事业单位", "l": "通过网盘分享的文件：事业单位 链接: https://pan.baidu.com/s/1qJCcjVmuusziGod9zbmAuA 提取码: 1234  --来自百度网盘超级会员v1的分享"}, {"id": "1775391949845", "c": "招录招聘类", "e": "中国烟草", "s": "中国烟草", "l": "通过网盘分享的文件：中国烟草 链接: https://pan.baidu.com/s/1J8UOka8-A_frjoZtF7ESDQ 提取码: 1234  --来自百度网盘超级会员v1的分享"}, {"id": "1775391931661", "c": "招录招聘类", "e": "三支一扶", "s": "三支一扶", "l": "通过网盘分享的文件：三支一扶 链接: https://pan.baidu.com/s/1iKXSJfghPFQOtEgW3VCOWg 提取码: 1234  --来自百度网盘超级会员v1的分享"}, {"id": "1775391912135", "c": "招录招聘类", "e": "国家能源", "s": "国家能源面试", "l": "通过网盘分享的文件：国家能源面试 链接: https://pan.baidu.com/s/12oY0VUT4yrh9WGUi__JPUA 提取码: 1234  --来自百度网盘超级会员v1的分享"}, {"id": "1775391893122", "c": "招录招聘类", "e": "国家能源", "s": "国家能源笔试", "l": "通过网盘分享的文件：国家能源笔试 链接: https://pan.baidu.com/s/1Od9VyqC5ZQ2d9tal8EDIpw 提取码: 1234  --来自百度网盘超级会员v1的分享"}, {"id": "1775391866756", "c": "招录招聘类", "e": "军队文职", "s": "军队文职-药学", "l": "通过网盘分享的文件：药学 链接: https://pan.baidu.com/s/1PGY2UHLW5cRyKA91qytIyw 提取码: 1234  --来自百度网盘超级会员v1的分享"}, {"id": "1775391847543", "c": "招录招聘类", "e": "军队文职", "s": "军队文职-英语", "l": "通过网盘分享的文件：英语 链接: https://pan.baidu.com/s/1qVhcOBbUHp84uCNHewdYXQ 提取码: 1234  --来自百度网盘超级会员v1的分享"}, {"id": "1775391827470", "c": "招录招聘类", "e": "军队文职", "s": "军队文职-艺术基础综合", "l": "通过网盘分享的文件：艺术基础综合 链接: https://pan.baidu.com/s/1roN_q640r7mc_hoSlysP7A 提取码: 1234  --来自百度网盘超级会员v1的分享"}, {"id": "1775391807913", "c": "招录招聘类", "e": "军队文职", "s": "军队文职-经济学", "l": "通过网盘分享的文件：经济学 链接: https://pan.baidu.com/s/1KoBCiWCkoIxr2eKvYQ_vqA 提取码: 1234  --来自百度网盘超级会员v1的分享"}, {"id": "1775391786246", "c": "招录招聘类", "e": "军队文职", "s": "军队文职-管理学", "l": "通过网盘分享的文件：管理学 链接: https://pan.baidu.com/s/1tm_A_JPe40XIhxae015HWQ 提取码: 1234  --来自百度网盘超级会员v1的分享"}, {"id": "1775391768171", "c": "招录招聘类", "e": "军队文职", "s": "军队文职-生物化学动物生理学", "l": "通过网盘分享的文件：生物化学动物生理学 链接: https://pan.baidu.com/s/1lN_ZXx6-FmA8NtQKdJB6ow 提取码: 1234  --来自百度网盘超级会员v1的分享"}, {"id": "1775391747292", "c": "招录招聘类", "e": "军队文职", "s": "军队文职-法学", "l": "通过网盘分享的文件：法学 链接: https://pan.baidu.com/s/1TPg1nytW1i6xyI27LIy5vw 提取码: 1234  --来自百度网盘超级会员v1的分享"}, {"id": "1775391722560", "c": "招录招聘类", "e": "军队文职", "s": "军队文职-汉语言文学", "l": "通过网盘分享的文件：汉语言文学 链接: https://pan.baidu.com/s/1QYzWHzFJmVZ_2dc_lT-2XQ 提取码: 1234  --来自百度网盘超级会员v1的分享"}, {"id": "1775391700820", "c": "招录招聘类", "e": "军队文职", "s": "军队文职-档案", "l": "通过网盘分享的文件：档案 链接: https://pan.baidu.com/s/18BEm1Mw2nnBDS7KYyWhJkQ 提取码: 1234  --来自百度网盘超级会员v1的分享"}, {"id": "1775391675389", "c": "招录招聘类", "e": "军队文职", "s": "军队文职-新闻学", "l": "通过网盘分享的文件：新闻学 链接: https://pan.baidu.com/s/1rTn9Z2DD3u5eoAR-rKjDkQ 提取码: 1234  --来自百度网盘超级会员v1的分享"}, {"id": "1775391653208", "c": "招录招聘类", "e": "军队文职", "s": "军队文职-数学3化学", "l": "通过网盘分享的文件：数学3化学 链接: https://pan.baidu.com/s/1ydMKvSpwFGmAbwd7hb8-bA 提取码: 1234  --来自百度网盘超级会员v1的分享"}, {"id": "1775391630653", "c": "招录招聘类", "e": "军队文职", "s": "军队文职-数学2物理", "l": "通过网盘分享的文件：数学2物理 链接: https://pan.baidu.com/s/1WpTZMRQREJ6buvpZ-9Tstg 提取码: 1234  --来自百度网盘超级会员v1的分享"}, {"id": "1775391609115", "c": "招录招聘类", "e": "军队文职", "s": "军队文职-数学1", "l": "通过网盘分享的文件：数学1 链接: https://pan.baidu.com/s/1_YBxK3mj-DOiFmQF5692tw 提取码: 1234  --来自百度网盘超级会员v1的分享"}, {"id": "1775391585682", "c": "招录招聘类", "e": "军队文职", "s": "军队文职-教育学", "l": "通过网盘分享的文件：教育学 链接: https://pan.baidu.com/s/1uweDnfuXd6DQOjeobnYyaA 提取码: 1234  --来自百度网盘超级会员v1的分享"}, {"id": "1775391559561", "c": "招录招聘类", "e": "军队文职", "s": "军队文职-护理学", "l": "通过网盘分享的文件：护理学 链接: https://pan.baidu.com/s/1B_d8hyiAmKR_XEhkOkMZNw 提取码: 1234  --来自百度网盘超级会员v1的分享"}, {"id": "1775391521562", "c": "招录招聘类", "e": "军队文职", "s": "军队文职-图书", "l": "通过网盘分享的文件：图书 链接: https://pan.baidu.com/s/1ZBRYZryaXjALAHJpKpYo8w 提取码: 1234  --来自百度网盘超级会员v1的分享"}, {"id": "1775391501604", "c": "招录招聘类", "e": "军队文职", "s": "军队文职-医学检验技术", "l": "通过网盘分享的文件：医学检验技术 链接: https://pan.baidu.com/s/10K-VIj_vpZzQrOougXyGBQ 提取码: 1234  --来自百度网盘超级会员v1的分享"}, {"id": "1775391478706", "c": "招录招聘类", "e": "军队文职", "s": "军队文职-出版", "l": "通过网盘分享的文件：出版 链接: https://pan.baidu.com/s/1yAbb7QJ2P4ULw7C0z5Ni-A 提取码: 1234  --来自百度网盘超级会员v1的分享"}, {"id": "1775391453540", "c": "招录招聘类", "e": "军队文职", "s": "军队文职-公共科目", "l": "通过网盘分享的文件：公共科目 链接: https://pan.baidu.com/s/1PSN1wKu5W7IkvIIO4NfDig 提取码: 1234  --来自百度网盘超级会员v1的分享"}, {"id": "1775391431636", "c": "招录招聘类", "e": "军队文职", "s": "军队文职-体育学", "l": "通过网盘分享的文件：体育学 链接: https://pan.baidu.com/s/1garNd7rVlyjtYVFKPO8_BQ 提取码: 1234  --来自百度网盘超级会员v1的分享"}, {"id": "1775391411498", "c": "招录招聘类", "e": "军队文职", "s": "军队文职-会计学", "l": "通过网盘分享的文件：会计学 链接: https://pan.baidu.com/s/16_keOdiykoW_J4-XzBxCXw 提取码: 1234  --来自百度网盘超级会员v1的分享"}, {"id": "1775391383131", "c": "招录招聘类", "e": "军队文职", "s": "军队文职-临床医学", "l": "通过网盘分享的文件：临床医学 链接: https://pan.baidu.com/s/1gyUZH0SmJF4Ikt8A-cAnnA 提取码: 1234  --来自百度网盘超级会员v1的分享"}, {"id": "1775391364087", "c": "招录招聘类", "e": "军队文职", "s": "军队文职-中药学", "l": "通过网盘分享的文件：中药学 链接: https://pan.baidu.com/s/1fXSW8_kAoHbY_nOq7Yo6hg 提取码: 1234  --来自百度网盘超级会员v1的分享"}, {"id": "1775391342146", "c": "招录招聘类", "e": "军队文职", "s": "军队文职-中医学", "l": "通过网盘分享的文件：中医学 链接: https://pan.baidu.com/s/1D1lEG7VNCPrCdFh45zyBjg 提取码: 1234  --来自百度网盘超级会员v1的分享"}, {"id": "1775380587400", "c": "学历提升类", "e": "成人高考", "s": "成人高考-理工类", "l": "通过网盘分享的文件：25成考专升本【理工类】 链接: https://pan.baidu.com/s/1B5OEqdHeM3UFhKgeydCmQQ 提取码: 1234  --来自百度网盘超级会员v1的分享"}, {"id": "1775380563518", "c": "学历提升类", "e": "成人高考", "s": "成人高考-教育类", "l": "通过网盘分享的文件：25成考专升本【教育类】 链接: https://pan.baidu.com/s/1OBsxFIEkE5wNr4js2kQh5A 提取码: 1234  --来自百度网盘超级会员v1的分享"}, {"id": "1775380537010", "c": "学历提升类", "e": "成人高考", "s": "成人高考-艺术概论", "l": "通过网盘分享的文件：25成考专升本【艺术概论】 链接: https://pan.baidu.com/s/1IG-8kIoYdyFDBZpC17H6mA 提取码: 1234  --来自百度网盘超级会员v1的分享"}, {"id": "1775380516693", "c": "学历提升类", "e": "成人高考", "s": "成人高考-经管类", "l": "通过网盘分享的文件：25成考专升本【经管类】 链接: https://pan.baidu.com/s/1uXnCKvVsmVT69RBUWHCamA 提取码: 1234  --来自百度网盘超级会员v1的分享"}, {"id": "1775380492096", "c": "学历提升类", "e": "成人高考", "s": "成人高考-法学类", "l": "通过网盘分享的文件：25成考专升本【法学类】 链接: https://pan.baidu.com/s/1pbfHK6gE2Ce0YQTZ5dpUZA 提取码: 1234  --来自百度网盘超级会员v1的分享"}, {"id": "1775380474536", "c": "学历提升类", "e": "成人高考", "s": "成人高考-文史类", "l": "通过网盘分享的文件：25成考专升本【文史类】 链接: https://pan.baidu.com/s/1qw55_iMQlkET8Pm3TATKAw 提取码: 1234  --来自百度网盘超级会员v1的分享"}, {"id": "1775380455945", "c": "学历提升类", "e": "成人高考", "s": "成人高考-医学综合", "l": "通过网盘分享的文件：25成考专升本【医学综合】 链接: https://pan.baidu.com/s/1k-d1_1EtHOIq4_cI_sr0aw 提取码: 1234  --来自百度网盘超级会员v1的分享"}, {"id": "1775380438110", "c": "学历提升类", "e": "成人高考", "s": "成人高考-农学类", "l": "通过网盘分享的文件：25成考专升本【农学类】 链接: https://pan.baidu.com/s/1MvlHD9fqzemCVnCq0g2ceA 提取码: 1234  --来自百度网盘超级会员v1的分享"}, {"id": "1775380380658", "c": "学历提升类", "e": "专升本", "s": "专升本-心理学", "l": "通过网盘分享的文件：教育学心理学上岸资料包 链接: https://pan.baidu.com/s/1JTIatSbZs76CRO6lSUOs8g 提取码: 1234  --来自百度网盘超级会员v1的分享"}, {"id": "1775380364155", "c": "学历提升类", "e": "专升本", "s": "专升本-管理学", "l": "通过网盘分享的文件：专升本管理学上岸资料包 链接: https://pan.baidu.com/s/1VDXXr3NQbge7bBI6G0gahw 提取码: 1234  --来自百度网盘超级会员v1的分享"}, {"id": "1775380346356", "c": "学历提升类", "e": "专升本", "s": "专升本-政治", "l": "通过网盘分享的文件：专升本政治上岸资料包 链接: https://pan.baidu.com/s/1It9Tt1iSuVWIMnN25VaS8w 提取码: 1234  --来自百度网盘超级会员v1的分享"}, {"id": "1775380327278", "c": "学历提升类", "e": "专升本", "s": "专升本-高数", "l": "通过网盘分享的文件：【3】专升本高数 链接: https://pan.baidu.com/s/1faDsdZ2OSkCcmbk00RXHwQ 提取码: 1234  --来自百度网盘超级会员v1的分享"}, {"id": "1775380308454", "c": "学历提升类", "e": "专升本", "s": "专升本-英语", "l": "通过网盘分享的文件：【2】专升本英语 链接: https://pan.baidu.com/s/19TV6fIoX_3WBE4BK4FswEg 提取码: 1234  --来自百度网盘超级会员v1的分享"}, {"id": "1775380293909", "c": "学历提升类", "e": "专升本", "s": "专升本-语文", "l": "通过网盘分享的文件：【1】专升本语文 链接: https://pan.baidu.com/s/1E37RgXwOTJz_IBw3LK8Htg 提取码: 1234  --来自百度网盘超级会员v1的分享"}, {"id": "1775380277376", "c": "学历提升类", "e": "专升本", "s": "专升本-计算机", "l": "通过网盘分享的文件：专升本计算机上岸资料包 链接: https://pan.baidu.com/s/1hSAF9-CdEg4m-MkKFnsL2g 提取码: 1234  --来自百度网盘超级会员v1的分享"}, {"id": "1775380242288", "c": "卫生健康类", "e": "初级护师", "s": "初级护师-独家资料已更新", "l": "通过网盘分享的文件：初级护师 链接: https://pan.baidu.com/s/1_76wWSwo5ENaCkrfzmDLJA 提取码: 1234  --来自百度网盘超级会员v1的分享"}, {"id": "1775380209381", "c": "卫生健康类", "e": "初级药师", "s": "初级药师-独家资料已更新", "l": "通过网盘分享的文件：初级药师 链接: https://pan.baidu.com/s/14oePF_8Mselfgkll2cE3-Q 提取码: 1234  --来自百度网盘超级会员v1的分享"}, {"id": "1775380183078", "c": "卫生健康类", "e": "主管护师", "s": "主管护师", "l": "通过网盘分享的文件：主管护师 链接: https://pan.baidu.com/s/1blNIbhRyzOZ3LF-TjO_WsQ 提取码: 1234  --来自百度网盘超级会员v1的分享"}, {"id": "1775380157662", "c": "卫生健康类", "e": "执业医师", "s": "执业医师-口腔", "l": "通过网盘分享的文件：口腔 链接: https://pan.baidu.com/s/1b00RAC-ZFOjIsPtCu0D0Vg 提取码: 1234  --来自百度网盘超级会员v1的分享"}, {"id": "1775380133188", "c": "卫生健康类", "e": "执业医师", "s": "执业医师-临床", "l": "通过网盘分享的文件：临床 链接: https://pan.baidu.com/s/1yY3oePHMITMBwvqWSh7UVQ 提取码: 1234  --来自百度网盘超级会员v1的分享"}, {"id": "1775380119641", "c": "卫生健康类", "e": "执业医师", "s": "执业医师-中西医", "l": "通过网盘分享的文件：中西医 链接: https://pan.baidu.com/s/1YoEmDw6uZsPGzUrSwjq_Ug 提取码: 1234  --来自百度网盘超级会员v1的分享"}, {"id": "1775380094853", "c": "卫生健康类", "e": "执业医师", "s": "执业医师-中医", "l": "通过网盘分享的文件：中医 链接: https://pan.baidu.com/s/13XQXhpC07B2x7A8wRJbzJQ 提取码: 1234  --来自百度网盘超级会员v1的分享"}, {"id": "1775380062848", "c": "卫生健康类", "e": "护士资格证", "s": "护士资格证", "l": "通过网盘分享的文件：护士资格 链接: https://pan.baidu.com/s/1H-l1i_qY1GviuiYZgKYT9g 提取码: 1234  --来自百度网盘超级会员v1的分享"}, {"id": "1775380043581", "c": "卫生健康类", "e": "执业药师", "s": "执业药师", "l": "通过网盘分享的文件：执业药师 链接: https://pan.baidu.com/s/1cnh73nHXZWkvOiB2bGCosA 提取码: 1234  --来自百度网盘超级会员v1的分享"}, {"id": "1775379997851", "c": "卫生健康类", "e": "执业兽医", "s": "执业兽医", "l": "通过网盘分享的文件：执业兽医-新版 链接: https://pan.baidu.com/s/1HHFWG1L_wnvkJ5Yok6s6GQ 提取码: 1234  --来自百度网盘超级会员v1的分享"}, {"id": "1775379969002", "c": "职业资格类", "e": "社会工作者", "s": "中级-社会工作者", "l": "通过网盘分享的文件：【口诀总结】初中级社工-综合能力_纯图版.pdf等2个文件 链接: https://pan.baidu.com/s/13DUBPL1YR-PfG-ZZ_6Pv1g 提取码: 1234  --来自百度网盘超级会员v1的分享"}, {"id": "1775379946901", "c": "职业资格类", "e": "社会工作者", "s": "初级-社会工作者", "l": "通过网盘分享的文件：初级社会工作者等2个文件 链接: https://pan.baidu.com/s/1iYztuHjoH4CXpDKlobKFtA 提取码: 1234  --来自百度网盘超级会员v1的分享"}, {"id": "1775379914007", "c": "学历提升类", "e": "考研", "s": "考研-英语", "l": "通过网盘分享的文件：考研英语 链接: https://pan.baidu.com/s/1oRPmv9_6L96XwQMT9hd6fw 提取码: 1234  --来自百度网盘超级会员v1的分享"}, {"id": "1775379896015", "c": "学历提升类", "e": "考研", "s": "考研-经济综合", "l": "通过网盘分享的文件：考研经综 链接: https://pan.baidu.com/s/1jJrIBhEVeZr-L1uMzzinsw 提取码: 1234  --来自百度网盘超级会员v1的分享"}, {"id": "1775379748207", "c": "学历提升类", "e": "考研", "s": "考研-管综", "l": "通过网盘分享的文件：考研管综 链接: https://pan.baidu.com/s/1eyRb0aSMTnwRg7-KCBOmrg 提取码: 1234  --来自百度网盘超级会员v1的分享"}, {"id": "1775379699375", "c": "学历提升类", "e": "考研", "s": "考研-法硕", "l": "通过网盘分享的文件：考研法硕 链接: https://pan.baidu.com/s/1ReRTbal1CW1d4B2sr17L9Q 提取码: 1234  --来自百度网盘超级会员v1的分享"}, {"id": "1775379681923", "c": "学历提升类", "e": "考研", "s": "考研-数学", "l": "通过网盘分享的文件：考研数学 链接: https://pan.baidu.com/s/1wyJE4taEaCRrJ7f9O1C57Q 提取码: 1234  --来自百度网盘超级会员v1的分享"}, {"id": "1775379666569", "c": "学历提升类", "e": "考研", "s": "考研-教育学", "l": "通过网盘分享的文件：考研教育学 链接: https://pan.baidu.com/s/1302-ebfywyZLlL61hJV5RQ 提取码: 1234  --来自百度网盘超级会员v1的分享"}, {"id": "1775379650825", "c": "学历提升类", "e": "考研", "s": "考研-政治", "l": "通过网盘分享的文件：考研政治 链接: https://pan.baidu.com/s/1bp_xB2blICLtsshY7-XyPA 提取码: 1234  --来自百度网盘超级会员v1的分享"}, {"id": "1775379599504", "c": "职业资格类", "e": "导游资格证", "s": "导游资格证-导游证冲刺", "l": "通过网盘分享的文件：导游证冲刺 链接: https://pan.baidu.com/s/1eeWR2dTfO0zKwrCDxwMw9w 提取码: 1234  --来自百度网盘超级会员v1的分享"}, {"id": "1775379572738", "c": "职业资格类", "e": "导游资格证", "s": "导游资格证-导游词", "l": "通过网盘分享的文件：导游词 链接: https://pan.baidu.com/s/18Dhxb4eUdRWgojFdm6J1jQ 提取码: 1234  --来自百度网盘超级会员v1的分享"}, {"id": "1775379559789", "c": "职业资格类", "e": "导游资格证", "s": "导游资格证-章节资料", "l": "通过网盘分享的文件：导游资料提取文件包 链接: https://pan.baidu.com/s/1h3sxX9oPyvJOo-96IGhDbg 提取码: 1234  --来自百度网盘超级会员v1的分享"}, {"id": "1775379521412", "c": "职业资格类", "e": "导游资格证", "s": "导游资格证-面试问答", "l": "通过网盘分享的文件：面试问答 链接: https://pan.baidu.com/s/16jhHvqthMaksgkWKhvgfeQ 提取码: 1234  --来自百度网盘超级会员v1的分享"}, {"id": "1775379501991", "c": "职业资格类", "e": "导游资格证", "s": "导游资格证-黄金考点", "l": "通过网盘分享的文件：黄金考点 链接: https://pan.baidu.com/s/17sM4x2BJSNSpEkTeuAiO1g 提取码: 1234  --来自百度网盘超级会员v1的分享"}, {"id": "1775379444635", "c": "职业资格类", "e": "新闻记者职业资格", "s": "新闻记者职业资格", "l": "通过网盘分享的文件：新闻记者职业资格 链接: https://pan.baidu.com/s/17efy5Mv4D6ZjV9Q_3G8q0Q 提取码: 1234  --来自百度网盘超级会员v1的分享"}, {"id": "1775379403681", "c": "职业资格类", "e": "演出经纪人", "s": "演出经纪人", "l": "通过网盘分享的文件：演出经纪人 链接: https://pan.baidu.com/s/1wSXng5OrOPjX3nWQck_-AQ 提取码: 1234  --来自百度网盘超级会员v1的分享"}, {"id": "1775379346582", "c": "财经金融类", "e": "中级会计", "s": "中级会计", "l": "通过网盘分享的文件：中级会计 链接: https://pan.baidu.com/s/1ILPkQEjAfrujYq3bhX4N7A 提取码: 1234  --来自百度网盘超级会员v1的分享"}, {"id": "1775379308210", "c": "财经金融类", "e": "初级会计", "s": "初级会计（2026已更新）", "l": "通过网盘分享的文件：初级会计 链接: https://pan.baidu.com/s/1Ue3Qa0eIFunU5xYd-WfV7g 提取码: 1234  --来自百度网盘超级会员v1的分享"}, {"id": "1775379239315", "c": "财经金融类", "e": "证券从业", "s": "证券从业", "l": "通过网盘分享的文件：证券从业 链接: https://pan.baidu.com/s/1PDmt0ucQKMAQGXNnX63eWQ 提取码: 1234  --来自百度网盘超级会员v1的分享"}, {"id": "1775379213080", "c": "财经金融类", "e": "期货从业", "s": "期货从业", "l": "通过网盘分享的文件：期货从业 链接: https://pan.baidu.com/s/1pzsqDRfIs905oGjvJwHg7A 提取码: 1234  --来自百度网盘超级会员v1的分享"}, {"id": "1775379185877", "c": "财经金融类", "e": "基金从业", "s": "基金从业", "l": "通过网盘分享的文件：基金从业 链接: https://pan.baidu.com/s/181n__Zd20yDX-pTVaVrejQ 提取码: 1234  --来自百度网盘超级会员v1的分享"}, {"id": "1775379129078", "c": "财经金融类", "e": "银行从业", "s": "中级银行从业", "l": "通过网盘分享的文件：中级银行从业 链接: https://pan.baidu.com/s/1CvtfMcjbPI4YUXwL5ndEvA?pwd=1234 提取码: 1234  --来自百度网盘超级会员v1的分享"}, {"id": "1775379094303", "c": "财经金融类", "e": "银行从业", "s": "初级银行从业", "l": "通过网盘分享的文件：初级银行从业 链接: https://pan.baidu.com/s/1AitIjnjQJbJ0yqXuofSvQQ?pwd=1234 提取码: 1234  --来自百度网盘超级会员v1的分享"}]</script>
+<!-- DATA_END -->
+
+<script id="admin-pwd" type="text/plain">youshi2025</script>
+
+<div class="toast" id="toast"></div>
+<div class="pw-overlay" id="pwOverlay" style="display:none">
+  <div class="pw-box">
+    <div class="pw-icon">🔐</div>
+    <div class="pw-title">管理员验证</div>
+    <div class="pw-desc">请输入管理员密码以进入后台</div>
+    <div class="pw-err" id="pwErr">密码错误，请重试</div>
+    <input class="pw-input" id="pwInput" type="password" placeholder="请输入密码" autocomplete="off">
+    <button class="pw-submit" id="pwSubmitBtn">确认进入</button>
+    <button class="pw-cancel" id="pwCancelBtn">返回资料页</button>
+  </div>
+</div>
+<header>
+  <div class="hd-wrap">
+    <div class="brand">
+      <div class="brand-mark">📚</div>
+      <div class="brand-text">
+        <h1>有时学社 · 考试资料库</h1>
+        <div class="brand-sub">
+          <span id="cnt">0 条资料</span>
+          <span>·</span>
+          <span class="wx-tag" id="wxCopy">💬 mimi202603</span>
+        </div>
+      </div>
+    </div>
+    <nav id="nv"></nav>
+  </div>
+</header>
+<main>
+  <div id="pg0">
+    <div class="toolbar">
+      <input class="si" id="sch" placeholder="🔍 搜索考试名称 / 科目 ..." oninput="rB()">
+      <div class="fr" id="flt"></div>
+    </div>
+    <div id="bl"></div>
+  </div>
+  <div id="pg1" style="display:none"></div>
+</main>
+<footer><strong>有时学社</strong> · <a href="#" id="wxCopy2">微信 mimi202603</a> · 让成长自然发生 🌱</footer>
+
+<script>
+(function(){
+  "use strict";
+
+  var CS = ["职业资格类","财经金融类","卫生健康类","建筑工程类","招录招聘类","学历提升类","其他综合类"];
+  var CI = {"职业资格类":"🏅","财经金融类":"💎","卫生健康类":"🌿","建筑工程类":"🧱","招录招聘类":"📝","学历提升类":"🎓","其他综合类":"🎁"};
+  var CLR = {"职业资格类":"#e4a0aa","财经金融类":"#8ab4d6","卫生健康类":"#8cc8a8","建筑工程类":"#e8b88a","招录招聘类":"#b8a0d0","学历提升类":"#e0a0d0","其他综合类":"#c8b898"};
+  var CLRB = {"职业资格类":"rgba(228,160,170,.15)","财经金融类":"rgba(138,180,214,.15)","卫生健康类":"rgba(140,200,168,.15)","建筑工程类":"rgba(232,184,138,.15)","招录招聘类":"rgba(184,160,208,.15)","学历提升类":"rgba(224,160,208,.15)","其他综合类":"rgba(200,184,152,.15)"};
+  var D = [], fC = "全部", eId = null, isA = false, pwOk = false;
+  var ADMIN_PWD = document.getElementById("admin-pwd").textContent.trim();
+
+  // ======= 复制功能（兼容手机） =======
+  function doCopy(text, callback) {
+    var done = false;
+    // 方法1: Clipboard API
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(function() {
+        if (!done) { done = true; callback(true); }
+      }, function() {
+        if (!done) { done = true; fallbackCopy(text, callback); }
+      });
+      // 超时回退
+      setTimeout(function() {
+        if (!done) { done = true; fallbackCopy(text, callback); }
+      }, 500);
+    } else {
+      fallbackCopy(text, callback);
+    }
+  }
+  function fallbackCopy(text, callback) {
+    var ta = document.createElement("textarea");
+    ta.value = text;
+    ta.setAttribute("readonly", "");
+    ta.style.cssText = "position:fixed;top:0;left:0;width:1px;height:1px;opacity:0";
+    document.body.appendChild(ta);
+    ta.focus();
+    ta.select();
+    var ok = false;
+    try { ok = document.execCommand("copy"); } catch(e) {}
+    document.body.removeChild(ta);
+    callback(ok);
+  }
+
+  // ======= Toast =======
+  function ts(msg, isOk) {
+    var el = document.getElementById("toast");
+    el.textContent = msg;
+    el.className = "toast " + (isOk !== false ? "ok" : "err") + " show";
+    setTimeout(function() { el.className = "toast"; }, 2500);
+  }
+
+  // ======= 复制入口 =======
+  function cp(text, label) {
+    doCopy(text, function(ok) {
+      if (ok) { ts("已复制: " + label); }
+      else { ts("复制失败，请手动复制", false); }
+    });
+  }
+  // 按钮复制（带文字变化）
+  window.cpBtn = function(btn, idx) {
+    var item = D[idx];
+    if (!item) return;
+    doCopy(item.l, function(ok) {
+      if (ok) {
+        btn.textContent = "✅ 复制成功，请打开百度网盘保存";
+        btn.classList.add("copied");
+        ts("已复制: " + item.e);
+        setTimeout(function() {
+          btn.textContent = "复制链接";
+          btn.classList.remove("copied");
+        }, 3000);
+      } else {
+        ts("复制失败，请长按链接手动复制", false);
+      }
+    });
+  };
+
+  // ======= 密码弹窗 =======
+  function showPwDialog() {
+    document.getElementById("pwOverlay").style.display = "flex";
+    document.getElementById("pwInput").value = "";
+    document.getElementById("pwErr").style.display = "none";
+    setTimeout(function() { document.getElementById("pwInput").focus(); }, 200);
+  }
+  document.getElementById("pwSubmitBtn").addEventListener("click", function() {
+    var v = document.getElementById("pwInput").value;
+    if (v === ADMIN_PWD) {
+      pwOk = true;
+      isA = true;
+      document.getElementById("pwOverlay").style.display = "none";
+      rN(); rB();
+    } else {
+      document.getElementById("pwErr").style.display = "block";
+      document.getElementById("pwInput").value = "";
+      document.getElementById("pwInput").focus();
+    }
+  });
+  document.getElementById("pwCancelBtn").addEventListener("click", function() {
+    document.getElementById("pwOverlay").style.display = "none";
+    isA = false;
+    pwOk = false;
+    var url = new URL(location.href);
+    url.searchParams.delete("admin");
+    history.replaceState(null, "", url.toString());
+    rN(); rB();
+  });
+  document.getElementById("pwInput").addEventListener("keydown", function(e) {
+    if (e.key === "Enter") document.getElementById("pwSubmitBtn").click();
+  });
+
+  // ======= 微信复制 =======
+  document.getElementById("wxCopy").addEventListener("click", function() { cp("mimi202603", "微信号"); });
+  document.getElementById("wxCopy2").addEventListener("click", function(e) { e.preventDefault(); cp("mimi202603", "微信号"); });
+
+  // ======= 工具函数 =======
+  function uC() { document.getElementById("cnt").textContent = D.length + " 条资料"; }
+  function esc(s) { var d = document.createElement("div"); d.textContent = s || ""; return d.innerHTML; }
+
+  // ======= 导航 =======
+  function rN() {
+    var n = document.getElementById("nv");
+    if (!isA || !pwOk) {
+      n.innerHTML = '<button class="nb on" id="navBrowse">📖 汇总</button>';
+    } else {
+      n.innerHTML = '<button class="nb on" id="navBrowse">📖 汇总</button><button class="nb" id="navAdmin">⚙️ 管理</button>';
+    }
+    // 绑定事件
+    var browseBtn = document.getElementById("navBrowse");
+    if (browseBtn) browseBtn.addEventListener("click", function() { sp(0); });
+    var adminBtn = document.getElementById("navAdmin");
+    if (adminBtn) adminBtn.addEventListener("click", function() { sp(1); });
+  }
+  function sp(p) {
+    document.getElementById("pg0").style.display = (p === 0) ? "" : "none";
+    document.getElementById("pg1").style.display = (p === 1) ? "" : "none";
+    var b = document.getElementById("navBrowse");
+    var a = document.getElementById("navAdmin");
+    if (b) b.className = "nb" + (p === 0 ? " on" : "");
+    if (a) a.className = "nb" + (p === 1 ? " on" : "");
+    if (p === 1) rA();
+    if (p === 0) rB();
+  }
+
+  // ======= 筛选 =======
+  window.setFilter = function(cat) { fC = cat; bF(); rB(); };
+  function bF() {
+    var a = ["全部"].concat(CS);
+    document.getElementById("flt").innerHTML = a.map(function(c) {
+      var clr = c === "全部" ? "#7a6e64" : CLR[c];
+      var on = fC === c;
+      return '<button class="fc' + (on ? " on" : "") + '" style="' + (on ? "background:" + clr + ";color:#fff;border:none" : "color:var(--text2)") + '" onclick="setFilter(\'' + c + '\')">' + (c !== "全部" ? CI[c] + " " : "") + c + '</button>';
+    }).join("");
+  }
+
+  // ======= 浏览页渲染 =======
+  function rB() {
+    var s = (document.getElementById("sch").value || "").trim().toLowerCase();
+    var f = D.filter(function(i) {
+      if (fC !== "全部" && i.c !== fC) return false;
+      if (s) return i.e.toLowerCase().indexOf(s) >= 0 || (i.s || "").toLowerCase().indexOf(s) >= 0 || i.c.indexOf(s) >= 0;
+      return true;
+    });
+    var g = {};
+    f.forEach(function(i) { if (!g[i.c]) g[i.c] = []; g[i.c].push(i); });
+    var el = document.getElementById("bl");
+    if (!f.length) {
+      el.innerHTML = '<div class="empty"><div class="empty-icon">📭</div><p>暂无资料' + (isA && pwOk ? '，请在管理后台添加' : '') + '</p></div>';
+      return;
+    }
+    var h = "";
+    CS.forEach(function(cat) {
+      if (!g[cat]) return;
+      h += '<div class="cs"><div class="ch"><span class="cat-pill" style="background:' + CLR[cat] + '"><span class="cat-3d">' + CI[cat] + '</span> ' + cat + '</span><span class="ccn">' + g[cat].length + '条</span></div>';
+      h += '<div class="masonry">';
+      g[cat].forEach(function(i) {
+        var idx = D.indexOf(i);
+        h += '<div class="card"><div class="card-top"><div class="card-icon-wrap" style="background:' + CLRB[i.c] + '">' + CI[i.c] + '</div><div class="card-info"><h3>' + esc(i.e) + '</h3>' + (i.s ? '<span class="card-sub">' + esc(i.s) + '</span>' : '') + '</div></div><button class="cp-btn" style="background:' + CLR[i.c] + '" onclick="cpBtn(this,' + idx + ')">复制链接</button></div>';
+      });
+      h += '</div></div>';
+    });
+    el.innerHTML = h;
+  }
+
+  // ======= 管理页渲染 =======
+  function rA() {
+    if (!isA || !pwOk) { sp(0); return; }
+    var h = '<div class="afc"><h2 class="aft">➕ 添加新资料</h2><div class="afg">';
+    h += '<label class="afl"><span>大类目</span><select class="afs" id="fc">' + CS.map(function(c) { return '<option value="' + c + '">' + CI[c] + ' ' + c + '</option>'; }).join("") + '</select></label>';
+    h += '<label class="afl"><span>考试名称</span><input class="afi" id="fe" placeholder="如：一级建造师"></label>';
+    h += '<label class="afl"><span>科目名称（选填）</span><input class="afi" id="fs" placeholder="如：建设工程经济"></label>';
+    h += '<label class="afl full"><span>网盘链接</span><input class="afi" id="fl" placeholder="粘贴百度网盘 / 阿里云盘链接"></label>';
+    h += '</div><button class="sub" id="submitBtn">提交添加</button></div>';
+    h += '<h2 class="aft" style="margin:28px 0 14px">📑 已有 ' + D.length + ' 条资料</h2>';
+    if (!D.length) {
+      h += '<div class="empty"><div class="empty-icon">📭</div><p>还没有添加任何资料</p></div>';
+    } else {
+      h += '<div class="admin-list">';
+      D.forEach(function(i, idx) {
+        if (eId === i.id) {
+          h += '<div class="edit-card"><div class="afg">';
+          h += '<label class="afl"><span>类目</span><select class="afs" id="ec">' + CS.map(function(c) { return '<option value="' + c + '"' + (i.c === c ? ' selected' : '') + '>' + c + '</option>'; }).join("") + '</select></label>';
+          h += '<label class="afl"><span>考试名称</span><input class="afi" id="ee" value="' + esc(i.e) + '"></label>';
+          h += '<label class="afl"><span>科目</span><input class="afi" id="es" value="' + esc(i.s) + '"></label>';
+          h += '<label class="afl full"><span>链接</span><input class="afi" id="el" value="' + esc(i.l) + '"></label>';
+          h += '</div><div class="edit-btns"><button onclick="cancelEdit()">取消</button><button class="save-btn" onclick="saveEdit(\'' + i.id + '\')">保存修改</button></div></div>';
+        } else {
+          h += '<div class="admin-item"><div class="ai-head"><span class="ai-tag" style="background:' + CLR[i.c] + '">' + CI[i.c] + ' ' + i.c + '</span><span class="ai-name">' + esc(i.e) + '</span></div>';
+          if (i.s) h += '<div class="ai-sub">' + esc(i.s) + '</div>';
+          h += '<div class="ai-actions"><button class="ai-btn cp" onclick="cpBtn(this,' + idx + ')">📋 复制链接</button><button class="ai-btn" onclick="startEdit(\'' + i.id + '\')">✏️ 编辑</button><button class="ai-btn dg" onclick="delItem(\'' + i.id + '\')">🗑️ 删除</button></div></div>';
+        }
+      });
+      h += '</div>';
+    }
+    h += '<div class="pub-bar"><div><p>📤 发布更新</p><small>下载新版网页文件，上传替换即可</small></div><button class="pub-btn" onclick="exportHTML()">⬇ 下载发布版</button></div>';
+    document.getElementById("pg1").innerHTML = h;
+    // 绑定提交按钮
+    var sb = document.getElementById("submitBtn");
+    if (sb) sb.addEventListener("click", addI);
+  }
+
+  // ======= CRUD =======
+  function addI() {
+    var e = document.getElementById("fe").value.trim();
+    var l = document.getElementById("fl").value.trim();
+    if (!e || !l) { ts("请填写考试名称和网盘链接", false); return; }
+    D.unshift({ id: Date.now() + "", c: document.getElementById("fc").value, e: e, s: document.getElementById("fs").value.trim(), l: l });
+    uC(); rA();
+    ts("添加成功");
+  }
+  window.startEdit = function(id) { eId = id; rA(); };
+  window.cancelEdit = function() { eId = null; rA(); };
+  window.saveEdit = function(id) {
+    var e = document.getElementById("ee").value.trim();
+    var l = document.getElementById("el").value.trim();
+    if (!e || !l) { ts("名称和链接不能为空", false); return; }
+    D = D.map(function(i) {
+      if (i.id !== id) return i;
+      return { id: i.id, c: document.getElementById("ec").value, e: e, s: document.getElementById("es").value.trim(), l: l };
+    });
+    eId = null; rA(); ts("修改已保存");
+  };
+  window.delItem = function(id) {
+    if (!confirm("确定删除？")) return;
+    D = D.filter(function(i) { return i.id !== id; });
+    uC(); rA(); ts("已删除");
+  };
+
+  // ======= 导出 =======
+  window.exportHTML = function() {
+    var html = "<!DOCTYPE html>\n" + document.documentElement.outerHTML;
+    var nd = JSON.stringify(D);
+    html = html.replace(/<!-- DATA_START -->[\s\S]*?<!-- DATA_END -->/, '<!-- DATA_START -->\n<script id="app-data" type="application/json">' + nd + '<\/script>\n<!-- DATA_END -->');
+    var b = new Blob([html], { type: "text/html;charset=utf-8" });
+    var a = document.createElement("a");
+    a.href = URL.createObjectURL(b);
+    a.download = "index.html";
+    a.click();
+    URL.revokeObjectURL(a.href);
+    ts("已下载，上传替换即可发布");
+  };
+
+  // ======= 初始化 =======
+  function init() {
+    try { D = JSON.parse(document.getElementById("app-data").textContent || "[]"); } catch(e) { D = []; }
+    var wantAdmin = new URLSearchParams(location.search).get("admin") === "true";
+    if (wantAdmin) { showPwDialog(); }
+    rN(); bF(); rB(); uC();
+  }
+
+  init();
+})();
+</script>
+</body>
+</html>
